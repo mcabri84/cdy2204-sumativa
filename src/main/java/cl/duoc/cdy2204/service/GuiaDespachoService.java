@@ -90,8 +90,12 @@ public class GuiaDespachoService {
     public GuiaDespacho eliminarGuia(String numeroGuia) {
         GuiaDespacho guia = buscarPorNumero(numeroGuia);
 
-        if (guia.getRutaS3() != null && !guia.getRutaS3().isBlank()) {
-            s3GuiaService.eliminarArchivo(guia.getRutaS3());
+        try {
+            if (guia.getRutaS3() != null && !guia.getRutaS3().isBlank()) {
+                s3GuiaService.eliminarArchivo(guia.getRutaS3());
+            }
+        } catch (Exception e) {
+            System.out.println("No se pudo eliminar archivo en S3 por restriccion IAM del laboratorio: " + e.getMessage());
         }
 
         if (guia.getRutaEfs() != null && !guia.getRutaEfs().isBlank()) {
