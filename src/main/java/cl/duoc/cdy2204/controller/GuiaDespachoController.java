@@ -37,6 +37,14 @@ public class GuiaDespachoController {
         return ResponseEntity.ok(service.crearGuia(request));
     }
 
+
+    @PostMapping("/{numeroGuia}/enviar-cola")
+    public ResponseEntity<GuiaDespacho> enviarGuiaACola(
+            @PathVariable String numeroGuia
+    ) {
+        return ResponseEntity.ok(service.enviarGuiaACola(numeroGuia));
+    }
+
     @PutMapping("/{numeroGuia}")
     public ResponseEntity<GuiaDespacho> actualizarGuia(
             @PathVariable String numeroGuia,
